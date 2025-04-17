@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Styles */
+        :root {
+            --primary-color: #a8d8ea; /* Soft blue */
+            --secondary-color: #f5cce8; /* Soft pink */
+            --accent-color: #c6e2e9; /* Light blue */
+            --text-color: #4a4a4a;
+            --light-text: #888;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 300px;
+            background-color: var(--white);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .profile h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .title {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        .nav-menu {
+            margin: 2rem 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .nav-menu i {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: var(--white);
+            margin: 0 0.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            background-color: var(--secondary-color);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 300px;
+            padding: 2rem;
+            background-color: var(--white);
+            min-height: 100vh;
+        }
+
+        .contact-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            z-index: 10;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .contact-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .section {
+            padding: 2rem 0;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        /* About Section */
+        .about-details {
+            margin-top: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item i {
+            margin-right: 1rem;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 7px;
+            height: 100%;
+            width: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background-color: #f5f9fa;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-content h4 {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: -2rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            border: 2px solid var(--white);
+        }
+
+        /* Education Section */
+        .education-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+        }
+
+        .education-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .education-item h4 {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Certificates Section */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .certificate-card {
+            background-color: #f5f9fa;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-header i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-right: 1rem;
+        }
+
+        .certificate-header h3 {
+            font-size: 1.1rem;
+        }
+
+        .certificate-card p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .view-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 3px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .view-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-category ul li {
+            margin-bottom: 1rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 0.3rem;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+            background-color: #f5f9fa;
+        }
+
+        .project-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: var(--secondary-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Contact Section */
+        #contact {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #contact form {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        #contact label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        #contact input,
+        #contact textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        #contact textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        #contact input:focus,
+        #contact textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(168, 216, 234, 0.3);
+        }
+
+        #contact button[type="submit"] {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        #contact button[type="submit"]:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--text-color);
+        }
+
+        .modal h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(168, 216, 234, 0.3);
+        }
+
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .contact-btn {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificates-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <img src="profile.jpg" alt="Profile Photo" class="profile-img">
+                <h1>Your Name</h1>
+                <p class="title">Professional Title</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#about" class="active"><i class="fas fa-user"></i> About Me</a></li>
+                    <li><a href="#experience"><i class="fas fa-briefcase"></i> Experience</a></li>
+                    <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+                    <li><a href="#certificates"><i class="fas fa-certificate"></i> Certificates</a></li>
+                    <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
+                    <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:youremail@example.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <button class="contact-btn" id="contactBtn">
+                <i class="fas fa-paper-plane"></i> Contact Me
+            </button>
+            
+            <section id="about" class="section active">
+                <h2>About Me</h2>
+                <p>Hello! I'm a passionate professional with expertise in my field. With several years of experience, I've developed a strong skill set and a track record of success in various projects and roles.</p>
+                <p>My approach combines technical excellence with creative problem-solving, allowing me to deliver innovative solutions to complex challenges.</p>
+                <div class="about-details">
+                    <div class="detail-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>Date of Birth: XX/XX/XXXX</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Location: Your City, Country</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-language"></i>
+                        <span>Languages: English, [Others]</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="experience" class="section">
+                <h2>Professional Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2020 - Present</div>
+                        <div class="timeline-content">
+                            <h3>Senior Position</h3>
+                            <h4>Company Name</h4>
+                            <p>Responsible for leading projects, managing teams, and delivering high-quality solutions. Achieved X, Y, Z results.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2017 - 2020</div>
+                        <div class="timeline-content">
+                            <h3>Mid-Level Position</h3>
+                            <h4>Company Name</h4>
+                            <p>Developed skills in specific areas, contributed to major projects, and grew professionally.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2015 - 2017</div>
+                        <div class="timeline-content">
+                            <h3>Junior Position</h3>
+                            <h4>Company Name</h4>
+                            <p>Entry-level role where I learned foundational skills and began my professional journey.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="education" class="section">
+                <h2>Education</h2>
+                <div class="education-item">
+                    <h3>University Name</h3>
+                    <h4>Degree Name (Year - Year)</h4>
+                    <p>Description of your degree, major, honors, or special projects.</p>
+                </div>
+                <div class="education-item">
+                    <h3>Institution Name</h3>
+                    <h4>Certification or Additional Education (Year)</h4>
+                    <p>Details about this educational experience.</p>
+                </div>
+            </section>
+            
+            <section id="certificates" class="section">
+                <h2>Certificates</h2>
+                <div class="certificates-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <i class="fas fa-certificate"></i>
+                            <h3>Certificate Name</h3>
+                        </div>
+                        <p>Issuing Organization (Year)</p>
+                        <a href="#" class="view-btn">View Certificate</a>
+                    </div>
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <i class="fas fa-certificate"></i>
+                            <h3>Certificate Name</h3>
+                        </div>
+                        <p>Issuing Organization (Year)</p>
+                        <a href="#" class="view-btn">View Certificate</a>
+                    </div>
+                    <div class="certificate-card">
+                        <div class="certificate-header">
+                            <i class="fas fa-certificate"></i>
+                            <h3>Certificate Name</h3>
+                        </div>
+                        <p>Issuing Organization (Year)</p>
+                        <a href="#" class="view-btn">View Certificate</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="skills" class="section">
+                <h2>Skills</h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Technical Skills</h3>
+                        <ul>
+                            <li>Skill 1 <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div></li>
+                            <li>Skill 2 <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div></li>
+                            <li>Skill 3 <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div></li>
+                            <li>Skill 4 <div class="skill-bar"><div class="skill-level" style="width: 75%"></div></div></li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Professional Skills</h3>
+                        <ul>
+                            <li>Leadership <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div></li>
+                            <li>Communication <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div></li>
+                            <li>Project Management <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div></li>
+                            <li>Team Collaboration <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="projects" class="section">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Project Image">
+                        <div class="project-info">
+                            <h3>Project Title</h3>
+                            <p>Brief description of the project, technologies used, and your role.</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Project Image">
+                        <div class="project-info">
+                            <h3>Project Title</h3>
+                            <p>Brief description of the project, technologies used, and your role.</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/300x200" alt="Project Image">
+                        <div class="project-info">
+                            <h3>Project Title</h3>
+                            <p>Brief description of the project, technologies used, and your role.</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section">
+                <h2>Contact Me</h2>
+                <form action="https://formspree.io/f/xpwpgaKq" method="POST">
+                    <label>
+                        Your email:
+                        <input type="email" name="email" required>
+                    </label>
+                    <label>
+                        Your message:
+                        <textarea name="message" required></textarea>
+                    </label>
+                    <button type="submit">Send</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Contact Me</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            const sections = document.querySelectorAll('.section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const sectionId = this.getAttribute('href');
+                    document.querySelector(sectionId).classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if (document.body.classList.contains('menu-open')) {
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+            });
+            
+            // Contact modal functionality
+            const contactBtn = document.getElementById('contactBtn');
+            const contactModal = document.getElementById('contactModal');
+            const closeBtn = document.querySelector('.close-btn');
+            
+            contactBtn.addEventListener('click', function() {
+                contactModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                contactModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === contactModal) {
+                    contactModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Here you would typically send the form data to a server
+                // For this example, we'll just log it and show an alert
+                console.log({ name, email, subject, message });
+                
+                alert('Thank you for your message! I will get back to you soon.');
+                contactForm.reset();
+                contactModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Mobile menu toggle (for smaller screens)
+            const menuToggle = document.createElement('div');
+            menuToggle.className = 'menu-toggle';
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.appendChild(menuToggle);
+            
+            menuToggle.addEventListener('click', function() {
+                document.body.classList.toggle('menu-open');
+            });
+            
+            // Add some interactive elements
+            const certificateCards = document.querySelectorAll('.certificate-card');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            certificateCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
