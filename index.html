@@ -392,7 +392,86 @@
         .view-btn:hover {
             background-color: #8569a3;
         }
+.contact-form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(150, 123, 182, 0.15);
+        border: 1px solid rgba(150, 123, 182, 0.2);
+    }
 
+    .form-group {
+        margin-bottom: 1.8rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.6rem;
+        color: var(--lavender);
+        font-weight: 600;
+        font-size: 1.05rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid var(--lavender);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: var(--transition);
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--lavender);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: rgba(150, 123, 182, 0.6);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(150, 123, 182, 0.2);
+        background: white;
+    }
+
+    textarea {
+        min-height: 160px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        background-color: var(--lavender);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 1.05rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: var(--transition);
+        width: 100%;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+        background-color: #8569a3;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(150, 123, 182, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .contact-form-container {
+            padding: 1.5rem;
+        }
+    }
         /* Skills Section */
         .skills-container {
             display: grid;
@@ -728,44 +807,58 @@
             </section>
 
             <!-- Contact Section -->
-            <section id="contact" class="section">
-                <h2>Contact Me</h2>
-                <div class="contact-form-container">
-                <form action="https://formspree.io/f/xpwpgakq" method="POST">
-                    <!-- Hidden input to disable CAPTCHA -->
-                    <input type="hidden" name="_captcha" value="false">
+           <section id="contact" class="section">
+    <h2>Contact Me</h2>
+    <div class="contact-form-container">
+        <form action="https://formspree.io/f/xpwpgakq" method="POST">
+            <!-- Hidden input to disable CAPTCHA -->
+            <input type="hidden" name="_captcha" value="false">
 
-                    <div class="form-group">
-                    <label for="email">
-                        <i class="fas fa-envelope"></i> Your Email
-                    </label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        placeholder="your.email@example.com" 
-                        required
-                    >
-                </div>
+            <div class="form-group">
+                <label for="name">
+                    <i class="fas fa-user"></i> Your Name
+                </label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    placeholder="Enter your name" 
+                    required
+                >
+            </div>
 
-                <div class="form-group">
-                    <label for="message">
-                        <i class="fas fa-comment-alt"></i> Your Message
-                    </label>
-                    <textarea 
-                        id="message" 
-                        name="message" 
-                        placeholder="Hello Harneet, I'd like to connect about..." 
-                        required
-                    ></textarea>
-                </div>
+            <div class="form-group" style="margin-top: 1.5rem;">
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Your Email
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="your.email@example.com" 
+                    required
+                >
+            </div>
 
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> Send Message
-                </button>
-            </form>
-        </div>
-    </section>
+            <div class="form-group" style="margin-top: 1.5rem;">
+                <label for="message">
+                    <i class="fas fa-comment-alt"></i> Your Message
+                </label>
+                <textarea 
+                    id="message" 
+                    name="message" 
+                    placeholder="Hello Harneet, I'd like to connect about..." 
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+        </form>
+    </div>
+</section>
+<style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Navigation functionality
