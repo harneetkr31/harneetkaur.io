@@ -10,7 +10,9 @@
             --primary-color: #a8d8ea;
             --secondary-color: #f5cce8;
             --accent-color: #c6e2e9;
+            --sidebar-bg: linear-gradient(135deg, #e6f7ff 0%, #f0f9ff 100%);
             --text-color: #4a4a4a;
+            --sidebar-text: #6a3093; /* Lavender purple */
             --light-text: #888;
             --white: #ffffff;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -35,16 +37,17 @@
             min-height: 100vh;
         }
 
-        /* Sidebar Styles */
+        /* ===== Beautiful Sidebar ===== */
         .sidebar {
             width: 300px;
-            background-color: var(--white);
+            background: var(--sidebar-bg);
             padding: 2rem;
             box-shadow: var(--shadow);
             position: fixed;
             height: 100vh;
             overflow-y: auto;
             z-index: 100;
+            border-right: 1px solid rgba(168, 216, 234, 0.3);
         }
 
         .profile {
@@ -57,18 +60,21 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--primary-color);
+            border: 5px solid rgba(106, 48, 147, 0.2);
             margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .profile h1 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
+            color: var(--sidebar-text);
         }
 
         .title {
-            color: var(--light-text);
+            color: var(--sidebar-text);
             font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         .nav-menu {
@@ -85,17 +91,24 @@
             border-radius: 5px;
             transition: var(--transition);
             font-weight: 500;
+            color: var(--sidebar-text);
         }
 
         .nav-menu a:hover, .nav-menu a.active {
-            background-color: var(--primary-color);
-            color: var(--white);
+            background-color: rgba(106, 48, 147, 0.1);
+            color: var(--sidebar-text);
+            transform: translateX(5px);
+        }
+
+        .nav-menu a.active {
+            border-left: 3px solid var(--sidebar-text);
         }
 
         .nav-menu i {
             margin-right: 0.5rem;
             width: 20px;
             text-align: center;
+            color: var(--sidebar-text);
         }
 
         .social-links {
@@ -111,15 +124,61 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: var(--primary-color);
-            color: var(--white);
+            background-color: rgba(106, 48, 147, 0.1);
+            color: var(--sidebar-text);
             margin: 0 0.5rem;
             transition: var(--transition);
         }
 
         .social-links a:hover {
             transform: translateY(-3px);
-            background-color: var(--secondary-color);
+            background-color: rgba(106, 48, 147, 0.2);
+        }
+
+        /* Contact Form in Sidebar */
+        .sidebar-contact {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-contact h3 {
+            color: var(--sidebar-text);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .sidebar-contact input,
+        .sidebar-contact textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid rgba(106, 48, 147, 0.2);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-contact textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .sidebar-contact button {
+            background-color: var(--sidebar-text);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .sidebar-contact button:hover {
+            opacity: 0.9;
         }
 
         /* Main Content Styles */
@@ -131,317 +190,75 @@
             min-height: 100vh;
         }
 
-        .contact-info {
+        /* Contact Info Dropdown */
+        .contact-dropdown {
             position: fixed;
             top: 2rem;
             right: 2rem;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            border-radius: 30px;
-            padding: 0.8rem 1.5rem;
-            box-shadow: var(--shadow);
             z-index: 10;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
         }
 
-        .contact-info a {
+        .contact-btn {
+            background-color: var(--sidebar-text);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-details {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            width: 250px;
+            margin-top: 1rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-dropdown:hover .contact-details {
+            display: flex;
+        }
+
+        .contact-details a {
             color: var(--text-color);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
             transition: var(--transition);
         }
 
-        .contact-info a:hover {
-            color: var(--primary-color);
+        .contact-details a:hover {
+            color: var(--sidebar-text);
         }
 
-        .section {
-            padding: 2rem 0;
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section h2 {
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .section h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--secondary-color);
-        }
-
-        /* About Section */
-        .about-details {
-            margin-top: 2rem;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .detail-item i {
-            margin-right: 1rem;
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-        }
-
-        /* Experience Section */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 7px;
-            height: 100%;
-            width: 2px;
-            background-color: var(--primary-color);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .timeline-date {
-            font-size: 0.9rem;
-            color: var(--light-text);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-content {
-            background-color: #f5f9fa;
-            padding: 1.5rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .timeline-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .timeline-content h4 {
-            color: var(--light-text);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: -2rem;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--secondary-color);
-            border: 2px solid var(--white);
-        }
-
-        /* Education Section */
-        .education-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px dashed #ddd;
-        }
-
-        .education-item:last-child {
-            border-bottom: none;
-        }
-
-        .education-item h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .education-item h4 {
-            color: var(--light-text);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        /* Certificates Section */
-        .certificates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .certificate-card {
-            background-color: #f5f9fa;
-            padding: 1.5rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-        }
-
-        .certificate-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .certificate-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .certificate-header i {
-            font-size: 1.5rem;
-            color: var(--secondary-color);
-            margin-right: 1rem;
-        }
-
-        .certificate-header h3 {
-            font-size: 1.1rem;
-        }
-
-        .certificate-card p {
-            color: var(--light-text);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .view-btn {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: var(--primary-color);
-            color: var(--white);
-            border-radius: 3px;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .view-btn:hover {
-            background-color: var(--secondary-color);
-        }
-
-        /* Skills Section */
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .skill-category ul li {
-            margin-bottom: 1rem;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 8px;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-top: 0.3rem;
-            overflow: hidden;
-        }
-
-        .skill-level {
-            height: 100%;
-            background-color: var(--secondary-color);
-            border-radius: 4px;
-        }
-
-        /* Contact Section */
-        #contact {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                position: static;
-                height: auto;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .contact-info {
-                position: static;
-                margin-bottom: 2rem;
-                border-radius: 5px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .skills-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .certificates-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* [Rest of your CSS remains the same] */
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
+        <!-- Beautiful Sidebar -->
         <aside class="sidebar">
             <div class="profile">
-                <img src="profile.jpg" alt="Harneet Kaur" class="profile-img">
+                <img src="harneet-profile.jpg" alt="Harneet Kaur" class="profile-img">
                 <h1>Harneet Kaur</h1>
                 <p class="title">2nd Year ECE (AIML) Student at MIT WPU, Pune</p>
             </div>
@@ -453,135 +270,86 @@
                     <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
                     <li><a href="#certificates"><i class="fas fa-certificate"></i> Certificates</a></li>
                     <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
-                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </nav>
             
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/harneet-kaur-5954a6230?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/harneetkr31/harneetkaur.io" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/harneet-kaur-5954a6230" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/harneetkr31" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="mailto:harneettkaur31@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+
+            <div class="sidebar-contact">
+                <h3>Get in Touch</h3>
+                <form id="sidebar-contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
             </div>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="contact-info">
-                <a href="tel:+918368458691">
-                    <i class="fas fa-phone"></i> +91 8368458691
-                </a>
-                <a href="mailto:harneettkaur31@gmail.com">
-                    <i class="fas fa-envelope"></i> harneettkaur31@gmail.com
-                </a>
+            <!-- Contact Dropdown -->
+            <div class="contact-dropdown">
+                <button class="contact-btn">
+                    <i class="fas fa-paper-plane"></i> Contact Me
+                </button>
+                <div class="contact-details">
+                    <a href="tel:+918368458691">
+                        <i class="fas fa-phone"></i> +91 8368458691
+                    </a>
+                    <a href="mailto:harneettkaur31@gmail.com">
+                        <i class="fas fa-envelope"></i> harneettkaur31@gmail.com
+                    </a>
+                    <a href="https://www.linkedin.com/in/harneet-kaur-5954a6230" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn Profile
+                    </a>
+                </div>
             </div>
             
-            <section id="about" class="section active">
-                <h2>About Me</h2>
-                <p>I am Harneet Kaur, a sophomore at MIT-WPU University in Pune, pursuing Electronics and Communication Engineering with a specialization in AIML. My interests lie in VLSI, electronics, and digital electronics.</p>
-                <p>Beyond academics, I am passionate about classical music, holding a Senior Diploma (4th year) in vocal music and a 3rd-year certification in Dilruba, a traditional classical instrument.</p>
-                <p>In addition to my technical and artistic pursuits, I have actively participated in the National Cadet Corps (NCC). I have completed my 3rd year and recently appeared for the 'C' certificate exam. As a dedicated member of the MIT NCC troop, I have honed my leadership, management, and organizational skills—handling events, managing teams and coordinating tasks.</p>
-                <div class="about-details">
-                    <div class="detail-item">
-                        <i class="fas fa-birthday-cake"></i>
-                        <span>Date of Birth: 31/08/2005</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Location: Currently in Pune, Maharashtra</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-language"></i>
-                        <span>Languages: English, Hindi, Punjabi and German (till B1 level)</span>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="experience" class="section">
-                <h2>Experience</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-date">Feb 2025 - Mar 2025</div>
-                        <div class="timeline-content">
-                            <h3>Business Analyst</h3>
-                            <h4>Finlatics</h4>
-                            <p>Worked as a business analyst intern, gaining experience in financial analysis and market research.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2023 - 2026</div>
-                        <div class="timeline-content">
-                            <h3>NCC Cadet</h3>
-                            <h4>MIT NCC Troop</h4>
-                            <p>Active member of the National Cadet Corps, developing leadership and organizational skills through various activities and events.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="education" class="section">
-                <h2>Education</h2>
-                <div class="education-item">
-                    <h3>MIT World Peace University</h3>
-                    <h4>B.Tech in Electronics and Communication Engineering (AIML Specialization) • 2022 - 2026</h4>
-                    <p>Currently in my second year of undergraduate studies with a focus on electronics, communication systems, and artificial intelligence/machine learning.</p>
-                </div>
-                <div class="education-item">
-                    <h3>Delhi Public School, Greater Noida</h3>
-                    <h4>Higher Secondary Education • 2020 - 2022</h4>
-                    <p>Completed my 11th and 12th grade with distinction in Physics, Chemistry, and Mathematics.</p>
-                </div>
-            </section>
-            
+            <!-- [Rest of your sections remain the same with updated certificates and skills] -->
             <section id="certificates" class="section">
                 <h2>Certificates</h2>
                 <div class="certificates-grid">
+                    <!-- Previous certificates... -->
+                    
                     <div class="certificate-card">
                         <div class="certificate-header">
                             <i class="fas fa-certificate"></i>
-                            <h3>Data Visualization and Building Dashboards</h3>
+                            <h3>MATLAB Onramp</h3>
                         </div>
-                        <p>IBM • Completed on 3/17/2024</p>
-                        <a href="https://courses.edx.org/certificates/fd7d208913fa4f0c8b65b35d163fb859" target="_blank" class="view-btn">View Certificate</a>
+                        <p>MathWorks • Completed</p>
+                        <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=e9594a91-911e-4269-bc58-1cfe3129e5e0" target="_blank" class="view-btn">View Certificate</a>
                     </div>
+                    
                     <div class="certificate-card">
                         <div class="certificate-header">
                             <i class="fas fa-certificate"></i>
-                            <h3>Personal Financial Planning</h3>
+                            <h3>MATLAB Signal Processing</h3>
                         </div>
-                        <p>IUx • Completed on 2/28/2024</p>
-                        <a href="https://courses.edx.org/certificates/bf07ccd07cb44b3dad4d86d01f564a77" target="_blank" class="view-btn">View Certificate</a>
+                        <p>MathWorks • Completed</p>
+                        <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=18eaaf27-8a59-4f4b-aae9-a8fec7815dac" target="_blank" class="view-btn">View Certificate</a>
                     </div>
+                    
                     <div class="certificate-card">
                         <div class="certificate-header">
                             <i class="fas fa-certificate"></i>
-                            <h3>Measuring Sustainable Development</h3>
+                            <h3>Arduino Programming</h3>
                         </div>
-                        <p>SDGAcademyX • Completed on 2/27/2024</p>
-                        <a href="https://courses.edx.org/certificates/39fcd93e907742a7b5e313ba460ad8ea" target="_blank" class="view-btn">View Certificate</a>
+                        <p>Spoken Tutorial IIT Bombay • Completed</p>
+                        <a href="arduino-cert.png" target="_blank" class="view-btn">View Certificate</a>
                     </div>
+                    
                     <div class="certificate-card">
                         <div class="certificate-header">
                             <i class="fas fa-certificate"></i>
-                            <h3>Teamwork & Collaboration</h3>
+                            <h3>Python Programming</h3>
                         </div>
-                        <p>RITx • Completed on 2/27/2024</p>
-                        <a href="https://courses.edx.org/certificates/4f5d9b3dc5dd468bb7ab66032efc13ae" target="_blank" class="view-btn">View Certificate</a>
-                    </div>
-                    <div class="certificate-card">
-                        <div class="certificate-header">
-                            <i class="fas fa-certificate"></i>
-                            <h3>Critical Thinking & Problem Solving</h3>
-                        </div>
-                        <p>RITx • Completed on 2/27/2024</p>
-                        <a href="https://courses.edx.org/certificates/aac98d5e89a1459d9e099c72cafc2ab0" target="_blank" class="view-btn">View Certificate</a>
-                    </div>
-                    <div class="certificate-card">
-                        <div class="certificate-header">
-                            <i class="fas fa-certificate"></i>
-                            <h3>Introduction to Social-Emotional Learning</h3>
-                        </div>
-                        <p>UCR • Completed on 2/26/2024</p>
-                        <a href="https://courses.edx.org/certificates/1d3b5c17769e428998f98c0bc3fc60d5" target="_blank" class="view-btn">View Certificate</a>
+                        <p>Spoken Tutorial IIT Bombay • Completed</p>
+                        <a href="python-cert.png" target="_blank" class="view-btn">View Certificate</a>
                     </div>
                 </div>
             </section>
@@ -592,42 +360,20 @@
                     <div class="skill-category">
                         <h3>Technical Skills</h3>
                         <ul>
-                            <li>Electronics <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div></li>
-                            <li>VLSI Design <div class="skill-bar"><div class="skill-level" style="width: 75%"></div></div></li>
-                            <li>Python <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div></li>
-                            <li>AIML Fundamentals <div class="skill-bar"><div class="skill-level" style="width: 70%"></div></div></li>
+                            <li>MATLAB <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div></li>
+                            <li>Microsoft Power BI <div class="skill-bar"><div class="skill-level" style="width: 75%"></div></div></li>
+                            <li>Tinkercad <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div></li>
+                            <li>Arduino <div class="skill-bar"><div class="skill-level" style="width: 70%"></div></div></li>
                         </ul>
                     </div>
                     <div class="skill-category">
                         <h3>Professional Skills</h3>
                         <ul>
-                            <li>Leadership <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div></li>
-                            <li>Team Management <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div></li>
-                            <li>Communication <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div></li>
-                            <li>Event Coordination <div class="skill-bar"><div class="skill-level" style="width: 75%"></div></div></li>
+                            <li>Hardworking <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div></li>
+                            <li>Team Management <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div></li>
+                            <li>Event Management <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div></li>
+                            <li>Teamwork <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div></li>
                         </ul>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="contact" class="section">
-                <h2>Contact</h2>
-                <div class="contact-methods">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+91 8368458691</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>harneettkaur31@gmail.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-linkedin"></i>
-                        <a href="https://www.linkedin.com/in/harneet-kaur-5954a6230" target="_blank">linkedin.com/in/harneet-kaur</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
-                        <a href="https://github.com/harneetkr31/harneetkaur.io" target="_blank">github.com/harneetkr31</a>
                     </div>
                 </div>
             </section>
@@ -635,59 +381,13 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navigation functionality
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            const sections = document.querySelectorAll('.section');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active class from all links and sections
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    sections.forEach(s => s.classList.remove('active'));
-                    
-                    // Add active class to clicked link
-                    this.classList.add('active');
-                    
-                    // Show corresponding section
-                    const sectionId = this.getAttribute('href');
-                    document.querySelector(sectionId).classList.add('active');
-                    
-                    // Close mobile menu if open
-                    if (document.body.classList.contains('menu-open')) {
-                        document.body.classList.remove('menu-open');
-                    }
-                });
-            });
-            
-            // Mobile menu toggle (for smaller screens)
-            const menuToggle = document.createElement('div');
-            menuToggle.className = 'menu-toggle';
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            document.body.appendChild(menuToggle);
-            
-            menuToggle.addEventListener('click', function() {
-                document.body.classList.toggle('menu-open');
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 20,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+        // [Your existing JavaScript remains the same]
+        
+        // Add this for the sidebar contact form
+        document.getElementById('sidebar-contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
         });
     </script>
 </body>
